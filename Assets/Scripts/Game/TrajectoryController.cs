@@ -1,33 +1,47 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class TrajectoryController : MonoBehaviour
 {
-    [SerializeField] private Camera _worldCamera;
-    [SerializeField] private GameObject _pointPrefab;
+    [SerializeField]
+    private Camera _camera;
 
-    private Vector2 _initialPosition;
-    private Vector2 _initialDirection;
-    private float _force = 20f;
+    [SerializeField]
+    private GameObject _pointPrefab;
+
+    [SerializeField]
+    private Transform _shotPoint;
+
+    [SerializeField]
     private int _pointsCount = 20;
+
+    [SerializeField]
+    private float _launchForce;
+
+    [SerializeField]
+    private float _spaceBetweenPoints;
+
+
     private GameObject[] _points;
+
+    private Vector2 direction;
+
 
     private void Start()
     {
-        _points = new GameObject[_pointsCount];
-        for (int i = 0; i < _pointsCount; i++)
-        {
-            _points[i] = Instantiate(_pointPrefab, transform.position, Quaternion.identity);
-        }
+        CreatePoints();
+        HideTrajectory();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        Vector2 arrowPosition = gameObject.transform.position;
-        Vector2 arrowDirection = gameObject.transform.right.normalized;
-
-        if (Input.GetMouseButton(0))
+        Vector2 shotPoint = _shotPoint.position;
+        Vector2 mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+        direction = mousePosition - shotPoint;
+        _shotPoint.right = direction;
+        if (Input.GetMouseButton(0) && IsWithinAngleLimit())
         {
-            DisplayTrajectory(arrowPosition, arrowDirection);
+            ShowTrajectory();
         }
         else
         {
@@ -35,29 +49,45 @@ public class TrajectoryController : MonoBehaviour
         }
     }
 
-    private void DisplayTrajectory(Vector2 initialPosition, Vector2 initialDirection)
+    private bool IsWithinAngleLimit()
+    {
+        Vector2 baseDirection = Vector2.right;
+        float angle = Vector2.Angle(baseDirection, direction);
+        return angle <= 90.0f;
+    }
+
+    private void ShowTrajectory()
     {
         for (int i = 0; i < _pointsCount; i++)
         {
-            float t = i / (float)(_pointsCount - 1);
-            Vector2 position = CalculatePointPosition(initialPosition, initialDirection, t);
-            _points[i].transform.position = position;
+            _points[i].SetActive(true);
+            _points[i].transform.position = CalculatePointPosition(i * _spaceBetweenPoints);
         }
     }
 
     private void HideTrajectory()
     {
-        for (int i = 0; i < _pointsCount; i++)
+        foreach (var point in _points)
         {
-            _points[i].transform.position = transform.position;
+            point.SetActive(false);
         }
     }
 
-    private Vector2 CalculatePointPosition(Vector2 initialPosition, Vector2 initialDirection, float t)
+    private void CreatePoints()
     {
-        Vector2 currentPosition = initialPosition +
-                                  (initialDirection * _force * t) +
-                                  0.5f * Physics2D.gravity * (t * t);
-        return currentPosition;
+        _points = new GameObject[_pointsCount];
+        for (int i = 0; i < _pointsCount; i++)
+        {
+            _points[i] = Instantiate(_pointPrefab, _shotPoint.position, Quaternion.identity);
+            _points[i].SetActive(false);
+        }
+    }
+
+    private Vector2 CalculatePointPosition(float t)
+    {
+        Vector2 position = (Vector2)_shotPoint.position +
+                           (direction.normalized * (_launchForce * t)) +
+                           Physics2D.gravity * (0.5f * (t * t));
+        return position;
     }
 }

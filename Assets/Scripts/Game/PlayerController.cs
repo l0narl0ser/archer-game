@@ -60,7 +60,7 @@ namespace Game
         private void LeanPlayer(Vector2 direction)
         {
             float leanAngleRadians = Vector2.SignedAngle(Vector2.right, direction);
-            leanAngleRadians = Mathf.Clamp(leanAngleRadians, -90f, 90f);
+            leanAngleRadians = Mathf.Clamp(leanAngleRadians, -90, 90f);
             Debug.LogWarning($"{leanAngleRadians}");
             Quaternion quaternion = Quaternion.Euler(0f, 0f, leanAngleRadians);
             _playerBody.rotation = Quaternion.Slerp(quaternion, _playerBody.rotation, Time.deltaTime * 10);

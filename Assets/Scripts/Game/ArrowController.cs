@@ -1,4 +1,6 @@
 ﻿using System;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game
@@ -7,6 +9,9 @@ namespace Game
     {
         [SerializeField]
         private Rigidbody2D _arrowRb;
+       
+
+       
 
         private bool hasHit = false;
 
@@ -24,7 +29,6 @@ namespace Game
             
             float angle = Mathf.Atan2(_arrowRb.velocity.y,_arrowRb.velocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            Debug.Log("hit");
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -32,5 +36,8 @@ namespace Game
             hasHit = true;
             Destroy(gameObject);
         }
+
+     
+      
     }
 }
