@@ -1589,7 +1589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _worldCamera: {fileID: 0}
-  _point: {fileID: 704223203973342897, guid: a5c42796d10e56e4fb7573df32742654, type: 3}
+  _pointPrefab: {fileID: 704223203973342897, guid: a5c42796d10e56e4fb7573df32742654, type: 3}
 --- !u!1 &5912014966692682083
 GameObject:
   m_ObjectHideFlags: 0
