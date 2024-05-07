@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 800368639162426999}
   - component: {fileID: 6359894397426378385}
-  - component: {fileID: 3147977045768942147}
-  - component: {fileID: 8828322122173439270}
+  - component: {fileID: 8153566657250685392}
+  - component: {fileID: 5056937008994360118}
+  - component: {fileID: 8287696058572757990}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -86,7 +87,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &3147977045768942147
+--- !u!60 &8153566657250685392
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3765223124355353241}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.96, y: 0.22}
+    newSize: {x: 0.96, y: 0.22}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.32, y: 0.11}
+      - {x: -0.48, y: 0.11}
+      - {x: -0.48, y: -0.11}
+      - {x: 0.31, y: -0.11}
+      - {x: 0.48, y: -0.04}
+      - {x: 0.48, y: 0.049999997}
+      - {x: 0.42999998, y: 0.08}
+--- !u!50 &5056937008994360118
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -100,26 +133,23 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 0.5
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &8828322122173439270
-CapsuleCollider2D:
+--- !u!114 &8287696058572757990
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3765223124355353241}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.96, y: 0.22}
-  m_Direction: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08939f80cc55473b84ff0e32be774bbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _arrowRb: {fileID: 5056937008994360118}
