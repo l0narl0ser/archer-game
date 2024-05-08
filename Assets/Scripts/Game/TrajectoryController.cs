@@ -21,6 +21,8 @@ public class TrajectoryController : MonoBehaviour
     [SerializeField]
     private float _spaceBetweenPoints;
 
+    [SerializeField]
+    private Transform _trajectoryRoot;
 
     private GameObject[] _points;
 
@@ -80,6 +82,7 @@ public class TrajectoryController : MonoBehaviour
         {
             _points[i] = Instantiate(_pointPrefab, _shotPoint.position, Quaternion.identity);
             _points[i].SetActive(false);
+            _points[i].transform.SetParent(_trajectoryRoot);
         }
     }
 

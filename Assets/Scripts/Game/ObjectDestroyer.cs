@@ -13,7 +13,7 @@ namespace Game
             if (other.gameObject.GetComponent<ArrowController>())
             {
                 Destroy(gameObject);
-                Context.Instance.GetMessageSystem().ObjectDestroyerEvent.ObjectDestroy(gameObject.transform.position);
+                Context.Instance.GetMessageSystem().ObjectEvent.ObjectDestroy(gameObject.transform.position);
             }
         }
     }

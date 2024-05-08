@@ -531,6 +531,42 @@ Transform:
   m_Father: {fileID: 939275479}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &739776302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 739776303}
+  m_Layer: 5
+  m_Name: targetPositonw
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &739776303
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739776302}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7893526281571567956}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 288, y: 172}
+  m_SizeDelta: {x: 20, y: 20}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &762913064
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,6 +890,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3081637153590869776, guid: 36fb5343951794047851f5478e315921, type: 3}
   m_PrefabInstance: {fileID: 1079428048}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1301544167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1301544168}
+  m_Layer: 0
+  m_Name: DotsRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1301544168
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301544167}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1384929157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -865,6 +932,10 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 5603274415577184178, guid: 8c3e1574ef6e86c4d835349af0087bc2, type: 3}
+      propertyPath: _trajectoryRoot
+      value: 
+      objectReference: {fileID: 1301544168}
     - target: {fileID: 5912014964939894752, guid: 8c3e1574ef6e86c4d835349af0087bc2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.74711734
@@ -995,7 +1066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5661861192532276232, guid: 9d1c8b7ef58cf5642ad060f96077c4a1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 68.48176
+      value: 147.12076
       objectReference: {fileID: 0}
     - target: {fileID: 5661861192532276232, guid: 9d1c8b7ef58cf5642ad060f96077c4a1, type: 3}
       propertyPath: m_LocalScale.y
@@ -1003,7 +1074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5661861192532276232, guid: 9d1c8b7ef58cf5642ad060f96077c4a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.0519
       objectReference: {fileID: 0}
     - target: {fileID: 5661861192532276232, guid: 9d1c8b7ef58cf5642ad060f96077c4a1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1223,6 +1294,10 @@ PrefabInstance:
       propertyPath: _worldCamera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 3103699315380655866, guid: 9e86269475e0f6f408372c1d62780515, type: 3}
+      propertyPath: _targetPosition
+      value: 
+      objectReference: {fileID: 739776302}
     - target: {fileID: 3908192277618070552, guid: 9e86269475e0f6f408372c1d62780515, type: 3}
       propertyPath: m_Pivot.x
       value: 0

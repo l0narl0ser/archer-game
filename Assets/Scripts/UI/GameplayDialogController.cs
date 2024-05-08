@@ -1,4 +1,5 @@
 ﻿using System;
+using Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,20 +9,32 @@ namespace UI
 {
     public class GameplayDialogController : MonoBehaviour
     {
-        [SerializeField] private Button _exitButton;
-
         [SerializeField] private TextMeshProUGUI _playerScore;
 
+        private int score = 0;
+        
         private void Awake()
         {
-            _exitButton.onClick.AddListener(OnExitButtonClick);
-            
+            Context.Instance.GetMessageSystem().ObjectEvent.ONCoinReceived += CalculateScore;
         }
 
-        private void OnExitButtonClick()
+        private void CalculateScore()
         {
-            Application.Instance.Exit();
-            Debug.Log("Exit");
+            score++;
+            UpdateScore();
+        }
+
+        private void UpdateScore()
+        {
+            if (_playerScore!=null)
+            {
+                _playerScore.text = score.ToString();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            Context.Instance.GetMessageSystem().ObjectEvent.ONCoinReceived -= CalculateScore;
         }
     }
 }
