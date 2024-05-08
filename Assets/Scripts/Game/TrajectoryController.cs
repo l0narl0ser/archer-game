@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TrajectoryController : MonoBehaviour
 {
@@ -26,7 +25,7 @@ public class TrajectoryController : MonoBehaviour
 
     private GameObject[] _points;
 
-    private Vector2 direction;
+    private Vector2 _direction;
 
 
     private void Start()
@@ -39,8 +38,8 @@ public class TrajectoryController : MonoBehaviour
     {
         Vector2 shotPoint = _shotPoint.position;
         Vector2 mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-        direction = mousePosition - shotPoint;
-        _shotPoint.right = direction;
+        _direction = mousePosition - shotPoint;
+        _shotPoint.right = _direction;
         if (Input.GetMouseButton(0) && IsWithinAngleLimit())
         {
             ShowTrajectory();
@@ -54,7 +53,7 @@ public class TrajectoryController : MonoBehaviour
     private bool IsWithinAngleLimit()
     {
         Vector2 baseDirection = Vector2.right;
-        float angle = Vector2.Angle(baseDirection, direction);
+        float angle = Vector2.Angle(baseDirection, _direction);
         return angle <= 90.0f;
     }
 
@@ -89,7 +88,7 @@ public class TrajectoryController : MonoBehaviour
     private Vector2 CalculatePointPosition(float t)
     {
         Vector2 position = (Vector2)_shotPoint.position +
-                           (direction.normalized * (_launchForce * t)) +
+                           (_direction.normalized * (_launchForce * t)) +
                            Physics2D.gravity * (0.5f * (t * t));
         return position;
     }

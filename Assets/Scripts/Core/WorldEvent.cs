@@ -6,9 +6,8 @@ namespace Core
     public class WorldEvent
     {
         public event Action<Vector3> OnDestroyed;
-        public event Action ONCoinReceived ;
+        public event Action OnCoinReceived ;
         
-
         public void ObjectDestroy(Vector3 position)
         {
             OnDestroyed?.Invoke(position);
@@ -16,7 +15,7 @@ namespace Core
 
         public void ReceiveCoin()
         {
-            ONCoinReceived?.Invoke();
+            OnCoinReceived?.Invoke();
         }
     }
 }

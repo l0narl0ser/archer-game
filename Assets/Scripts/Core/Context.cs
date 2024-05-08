@@ -28,5 +28,4 @@
             return _messageSystem;
         }
     }
-    
 }

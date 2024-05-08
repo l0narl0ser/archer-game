@@ -1,7 +1,4 @@
-﻿using System;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
@@ -9,35 +6,27 @@ namespace Game
     {
         [SerializeField]
         private Rigidbody2D _arrowRb;
-       
 
-       
-
-        private bool hasHit = false;
+        private bool _hasHit = false;
 
         private void Update()
         {
-            if (hasHit == false)
+            if (_hasHit == false)
             {
                 TrackMovement();
             }
-           
         }
 
         private void TrackMovement()
         {
-            
-            float angle = Mathf.Atan2(_arrowRb.velocity.y,_arrowRb.velocity.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(_arrowRb.velocity.y, _arrowRb.velocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            hasHit = true;
+            _hasHit = true;
             Destroy(gameObject);
         }
-
-     
-      
     }
 }
