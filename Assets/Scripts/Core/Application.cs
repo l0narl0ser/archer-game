@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using DG.Tweening;
+using UnityEngine;
 
 namespace Core
 {
@@ -21,9 +23,9 @@ namespace Core
             }
         }
 
-        public void Exit()
+        private void Awake()
         {
-            UnityEngine.Application.Quit();
+            DOTween.Init();
         }
     }
 }
