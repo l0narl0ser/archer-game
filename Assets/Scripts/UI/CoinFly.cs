@@ -1,9 +1,6 @@
-﻿using System;
-using Core;
+﻿using Core;
 using DG.Tweening;
-using Game;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace UI
 {
@@ -20,6 +17,7 @@ namespace UI
 
         [SerializeField]
         private GameObject _targetPosition;
+
         private void Awake()
         {
             Context.Instance.GetMessageSystem().ObjectEvent.OnDestroyed += OnObjectDestroyed;
@@ -27,8 +25,8 @@ namespace UI
 
         private void OnObjectDestroyed(Vector3 obj)
         {
-           GameObject spawnCoin =  SpawnCoin(obj);
-           AnimateCoin(spawnCoin);
+            GameObject spawnCoin = SpawnCoin(obj);
+            AnimateCoin(spawnCoin);
         }
 
         private GameObject SpawnCoin(Vector3 positionSpawn)
@@ -44,13 +42,14 @@ namespace UI
             Vector3 targetPosition = _targetPosition.transform.position;
             Vector3 targetScale = _targetUIElement.rect.size;
             spawnedCoin.transform.DOMove(targetPosition, 1.0f);
-            rectSpawnedCoin.DOSizeDelta(targetScale,1.0f)
+            rectSpawnedCoin.DOSizeDelta(targetScale, 1.0f)
                 .OnComplete(() =>
                 {
                     Destroy(spawnedCoin);
                     Context.Instance.GetMessageSystem().ObjectEvent.ReceiveCoin();
                 });
         }
+
         private void OnDestroy()
         {
             Context.Instance.GetMessageSystem().ObjectEvent.OnDestroyed -= OnObjectDestroyed;

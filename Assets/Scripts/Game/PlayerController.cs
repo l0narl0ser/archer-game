@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using Spine.Unity;
+using UnityEngine;
 
 namespace Game
 {
@@ -23,29 +22,36 @@ namespace Game
         private string _currentAnimation = "";
 
         private Vector3 _lastMousePosition;
-
-       
+        private float _timeScale = 1f;
+        
+        private const string PLAYER_IDLE = "idle";
+        private const string PLAYER_ATTACK_START = "attack_start";
+        private const string PLAYER_ATTACK_FINISH = "attack_finish";
 
         private void Update()
         {
             Vector2 direction = GetInputDirection();
+            UpdatePlayerAnimation();
+            if (Input.GetMouseButton(0))
+            {
+                LeanPlayer(direction);
+            }
+        }
+
+        private void UpdatePlayerAnimation()
+        {
             if (_currentAnimation == "" && !Input.GetMouseButton(0))
             {
-                SetCharterState("idle");
+                SetCharterState(PLAYER_IDLE, true);
             }
 
             if (Input.GetMouseButtonDown(0))
             {
-                SetCharterState("attack_start");
+                SetCharterState(PLAYER_ATTACK_START, false);
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                SetCharterState("attack_finish");
-            }
-
-            if (Input.GetMouseButton(0))
-            {
-                LeanPlayer(direction);
+                SetCharterState(PLAYER_ATTACK_FINISH, false);
             }
         }
 
@@ -61,7 +67,6 @@ namespace Game
         {
             float leanAngleRadians = Vector2.SignedAngle(Vector2.right, direction);
             leanAngleRadians = Mathf.Clamp(leanAngleRadians, -90, 90f);
-            Debug.LogWarning($"{leanAngleRadians}");
             Quaternion quaternion = Quaternion.Euler(0f, 0f, leanAngleRadians);
             _playerBody.rotation = Quaternion.Slerp(quaternion, _playerBody.rotation, Time.deltaTime * 10);
         }
@@ -77,20 +82,16 @@ namespace Game
             _currentAnimation = animation.name;
         }
 
-        private void SetCharterState(string state)
+        private void SetCharterState(string state, bool loop)
         {
-            if (state.Equals("attack_start"))
+            if (state.Equals(PLAYER_ATTACK_FINISH))
             {
-                SetAnimation(FindAnimationByName("attack_start"), false, 1f);
-            }
-            else if (state.Equals("attack_finish"))
-            {
-                SetAnimation(FindAnimationByName("attack_finish"), false, 1f);
-                Invoke("SetIdleState", _skeletonAnimation.state.GetCurrent(0).Animation.Duration);
+                SetAnimation(FindAnimationByName(state), loop, _timeScale);
+                Invoke(nameof(SetIdleState), _skeletonAnimation.state.GetCurrent(0).Animation.Duration);
             }
             else
             {
-                SetAnimation(FindAnimationByName("idle"), true, 1f);
+                SetAnimation(FindAnimationByName(state), loop, _timeScale);
             }
 
             _currentAnimation = state;
@@ -108,12 +109,13 @@ namespace Game
 
             return null;
         }
+
         private void SetIdleState()
         {
-            if (!_currentAnimation.Equals("idle"))
+            if (!_currentAnimation.Equals(PLAYER_IDLE))
             {
-                SetAnimation(FindAnimationByName("idle"), true, 1f);
-                _currentAnimation = "idle";
+                SetAnimation(FindAnimationByName(PLAYER_IDLE), true, _timeScale);
+                _currentAnimation = PLAYER_IDLE;
             }
         }
     }

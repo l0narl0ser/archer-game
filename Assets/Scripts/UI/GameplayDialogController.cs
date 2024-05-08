@@ -1,40 +1,38 @@
-﻿using System;
-using Core;
+﻿using Core;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using Application = Core.Application;
 
 namespace UI
 {
     public class GameplayDialogController : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _playerScore;
+        [SerializeField]
+        private TextMeshProUGUI _playerScore;
 
-        private int score = 0;
-        
+        private int _score = 0;
+
         private void Awake()
         {
-            Context.Instance.GetMessageSystem().ObjectEvent.ONCoinReceived += CalculateScore;
+            Context.Instance.GetMessageSystem().ObjectEvent.OnCoinReceived += CalculateScore;
         }
 
         private void CalculateScore()
         {
-            score++;
+            _score++;
             UpdateScore();
         }
 
         private void UpdateScore()
         {
-            if (_playerScore!=null)
+            if (_playerScore != null)
             {
-                _playerScore.text = score.ToString();
+                _playerScore.text = _score.ToString();
             }
         }
 
         private void OnDestroy()
         {
-            Context.Instance.GetMessageSystem().ObjectEvent.ONCoinReceived -= CalculateScore;
+            Context.Instance.GetMessageSystem().ObjectEvent.OnCoinReceived -= CalculateScore;
         }
     }
 }

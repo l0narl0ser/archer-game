@@ -1,6 +1,4 @@
-﻿using System;
-using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
@@ -14,9 +12,7 @@ namespace Game
 
         [SerializeField]
         private float _force;
-
-      
-
+        
         private void Update()
         {
             if (Input.GetMouseButtonUp(0))
