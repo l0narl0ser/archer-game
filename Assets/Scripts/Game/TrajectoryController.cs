@@ -24,10 +24,8 @@ public class TrajectoryController : MonoBehaviour
     private Transform _trajectoryRoot;
 
     private GameObject[] _points;
-
     private Vector2 _direction;
-
-
+    
     private void Start()
     {
         CreatePoints();

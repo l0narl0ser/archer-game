@@ -12,9 +12,7 @@ namespace Game
 
         [SerializeField]
         private float _force;
-
-      
-
+        
         private void Update()
         {
             if (Input.GetMouseButtonUp(0))
