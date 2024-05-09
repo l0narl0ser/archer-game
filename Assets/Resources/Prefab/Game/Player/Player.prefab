@@ -1457,7 +1457,6 @@ GameObject:
   - component: {fileID: 5912014966519134905}
   - component: {fileID: 5912014966519134908}
   - component: {fileID: 6232074990012084849}
-  - component: {fileID: 5603274415577184178}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1515,25 +1514,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shotPoint: {fileID: 4690242848545454685}
   _arrow: {fileID: 3765223124355353241, guid: 56e0e3e87734ac44ebcfe5e8e2221920, type: 3}
-  _force: 20
---- !u!114 &5603274415577184178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5912014966519134906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4fb264ba5d54f2cb2250a5829984669, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
-  _pointPrefab: {fileID: 2914963956246266853, guid: a5c42796d10e56e4fb7573df32742654, type: 3}
-  _shotPoint: {fileID: 4690242848545454685}
-  _pointsCount: 20
-  _launchForce: 20
-  _spaceBetweenPoints: 0.1
 --- !u!1 &5912014966604941884
 GameObject:
   m_ObjectHideFlags: 0
