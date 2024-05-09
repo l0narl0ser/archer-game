@@ -23,7 +23,7 @@ namespace Game
 
         private Vector3 _lastMousePosition;
         private float _timeScale = 1f;
-        
+
         private const string PLAYER_IDLE = "idle";
         private const string PLAYER_ATTACK_START = "attack_start";
         private const string PLAYER_ATTACK_FINISH = "attack_finish";
@@ -66,7 +66,11 @@ namespace Game
         private void LeanPlayer(Vector2 direction)
         {
             float leanAngleRadians = Vector2.SignedAngle(Vector2.right, direction);
-            leanAngleRadians = Mathf.Clamp(leanAngleRadians, -90, 90f);
+            if (leanAngleRadians > 90 || leanAngleRadians < -90)
+            {
+                leanAngleRadians = 180 + leanAngleRadians;
+            }
+
             Quaternion quaternion = Quaternion.Euler(0f, 0f, leanAngleRadians);
             _playerBody.rotation = Quaternion.Slerp(quaternion, _playerBody.rotation, Time.deltaTime * 10);
         }

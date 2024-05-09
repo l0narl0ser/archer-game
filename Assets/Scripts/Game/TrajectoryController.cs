@@ -1,93 +1,64 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TrajectoryController : MonoBehaviour
 {
     [SerializeField]
-    private Camera _camera;
-
-    [SerializeField]
     private GameObject _pointPrefab;
-
-    [SerializeField]
-    private Transform _shotPoint;
-
+    
     [SerializeField]
     private int _pointsCount = 20;
-
-    [SerializeField]
-    private float _launchForce;
-
+    
     [SerializeField]
     private float _spaceBetweenPoints;
 
     [SerializeField]
-    private Transform _trajectoryRoot;
+    private GameObject _dotsRoot;
 
-    private GameObject[] _points;
+    private Transform[] _points;
     private Vector2 _direction;
-    
+    private float _timeStamp;
+    private Vector2 pos;
+
     private void Start()
     {
         CreatePoints();
         HideTrajectory();
     }
+    
 
-    private void LateUpdate()
+    public void ShowTrajectory()
     {
-        Vector2 shotPoint = _shotPoint.position;
-        Vector2 mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-        _direction = mousePosition - shotPoint;
-        _shotPoint.right = _direction;
-        if (Input.GetMouseButton(0) && IsWithinAngleLimit())
-        {
-            ShowTrajectory();
-        }
-        else
-        {
-            HideTrajectory();
-        }
+        _dotsRoot.SetActive(true);
     }
 
-    private bool IsWithinAngleLimit()
+    public void HideTrajectory()
     {
-        Vector2 baseDirection = Vector2.right;
-        float angle = Vector2.Angle(baseDirection, _direction);
-        return angle <= 90.0f;
-    }
-
-    private void ShowTrajectory()
-    {
-        for (int i = 0; i < _pointsCount; i++)
-        {
-            _points[i].SetActive(true);
-            _points[i].transform.position = CalculatePointPosition(i * _spaceBetweenPoints);
-        }
-    }
-
-    private void HideTrajectory()
-    {
-        foreach (var point in _points)
-        {
-            point.SetActive(false);
-        }
+        _dotsRoot.SetActive(false);
     }
 
     private void CreatePoints()
     {
-        _points = new GameObject[_pointsCount];
+        _points = new Transform[_pointsCount];
         for (int i = 0; i < _pointsCount; i++)
         {
-            _points[i] = Instantiate(_pointPrefab, _shotPoint.position, Quaternion.identity);
-            _points[i].SetActive(false);
-            _points[i].transform.SetParent(_trajectoryRoot);
+            _points[i] = Instantiate(_pointPrefab, null).transform;
+
+            _points[i].SetParent(_dotsRoot.transform);
         }
     }
+    
 
-    private Vector2 CalculatePointPosition(float t)
+    public void UpdateDots(Vector3 shotPosition, Vector2 forceApplied)
     {
-        Vector2 position = (Vector2)_shotPoint.position +
-                           (_direction.normalized * (_launchForce * t)) +
-                           Physics2D.gravity * (0.5f * (t * t));
-        return position;
+        _timeStamp = _spaceBetweenPoints;
+        for (int i = 0; i < _pointsCount; i++)
+        {
+            pos.x = shotPosition.x + forceApplied.x * _timeStamp;
+            pos.y = shotPosition.y + forceApplied.y * _timeStamp -
+                    (Physics2D.gravity.magnitude * (_timeStamp * _timeStamp)) / 2f;
+            _points[i].position = pos;
+            _timeStamp += _spaceBetweenPoints;
+        }
     }
 }
